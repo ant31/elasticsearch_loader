@@ -71,7 +71,6 @@ def log(sevirity, msg):
 @click.option('--es-host', default=['http://localhost:9200'], multiple=True, envvar='ES_HOST',
               help='Elasticsearch cluster entry point. (default http://localhost:9200)')
 @click.option('--verify-certs', default=False, is_flag=True, help='Make sure we verify SSL certificates (default false)')
-@click.option('--use-ssl', default=False, is_flag=True, help='Turn on SSL (default false)')
 @click.option('--ca-certs', help='Provide a path to CA certs on disk')
 @click.option('--http-auth', help='Provide username and password for basic auth in the format of username:password')
 @click.option('--index', help='Destination index name', required=True)
@@ -79,7 +78,6 @@ def log(sevirity, msg):
 @click.option('--update', default=False, is_flag=True, help='Merge and update existing doc instead of overwrite')
 @click.option('--progress', default=False, is_flag=True, help='Enable progress bar - '
               'NOTICE: in order to show progress the entire input should be collected and can consume more memory than without progress bar')
-@click.option('--type', help='Docs type. TYPES WILL BE DEPRECATED IN APIS IN ELASTICSEARCH 7, AND COMPLETELY REMOVED IN 8.', required=True, default='_doc')
 @click.option('--id-field', help='Specify field name that be used as document id')
 @click.option('--as-child', default=False, is_flag=True, help='Insert _parent, _routing field, '
               'the value is same as _id. Note: must specify --id-field explicitly')
@@ -97,7 +95,7 @@ def cli(ctx, **opts):
     ctx.obj['es_conn'] = Elasticsearch(opts['es_host'], **es_opts)
     if opts['delete']:
         try:
-            ctx.obj['es_conn'].indices.delete(opts['index'])
+            ctx.obj['es_conn'].indices.delete(index=opts['index'])
             log('info', 'Index %s deleted' % opts['index'])
         except NotFoundError:
             log('info', 'Skipping index deletion')

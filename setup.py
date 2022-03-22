@@ -15,14 +15,14 @@ except Exception:
 setup(
     name='elasticsearch-loader',
     author='Moshe Zada',
-    version='0.6.0',
+    version='0.8.0',
     packages=['elasticsearch_loader'],
     keywords=['elastic', 'elasticsearch', 'csv', 'json', 'parquet', 'bulk', 'loader', 'redis'],
     url='https://github.com/Moshe/elasticsearch_loader',
     license='',
     long_description=long_description,
     description='A pythonic tool for batch loading data files (json, parquet, csv, tsv) into ElasticSearch',
-    install_requires=['elasticsearch>=6', 'click==7.1.1', 'click-stream==0.0.10', 'click-conf'] + extras,
+    install_requires=['elasticsearch>=8', 'click==7.1.1', 'click-stream==0.0.10', 'click-conf'] + extras,
     extras_require={
         'parquet': ['parquet'],
         'redis': ['esl-redis'],
