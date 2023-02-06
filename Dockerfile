@@ -1,5 +1,4 @@
-from python:3-alpine
-RUN apk add --no-cache gcc musl-dev
+from python:3.10
 COPY . /app
 RUN cd /app && \
         pip install -e .[tests] -U && \
